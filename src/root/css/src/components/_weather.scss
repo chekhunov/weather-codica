@@ -1,0 +1,13 @@
+.weather {
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    &:not(:last-child) {
+      margin-right: 15px;
+      margin-bottom: 15px;
+    }
+  }
+}

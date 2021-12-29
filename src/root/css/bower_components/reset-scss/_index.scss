@@ -1,0 +1,90 @@
+/* Indicate box sizing */
+/* Smooth scrolling on site */
+/* scroll-behavior: smooth;  */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+// Only they will have padding 0 if they do not have the class then Padding will not be 0
+ul,
+ol {
+  padding: 0;
+}
+
+/* We remove external indents */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote {
+  margin: 0;
+}
+
+/* I set the basic default settings for Body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.3;
+}
+
+/* We delete standard stylization for all UL and IL, which have an attribute class*/
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Elements a, who have no class, discard default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Simplify work with images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/*Indicate the understandable periodicity in the data stream article*/
+// article > * + * {
+//   margin-top: 1em;
+// }
+
+/* Inherit the fonts for the inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people who prefer them not to use */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+address {
+  font-style: normal;
+}
