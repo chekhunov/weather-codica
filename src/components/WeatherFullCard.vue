@@ -1,13 +1,8 @@
 <template>
   <div
     class="weather-card"
-    @click="goTodetail()"
   >
     <div class="weather-card__inner">
-      <button-delete
-        @clickButton="deleteCard"
-      />
-
       <div class="weather-card__headline">
         <div class="weather-card__date">
           {{ dateTime() }}
@@ -33,11 +28,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ButtonDelete from '../atoms/ButtonDelete.vue';
 
 export default {
   name: 'WeatherCard',
-  components: { ButtonDelete },
   props: {
     data: {
       type: Object,
@@ -53,10 +46,6 @@ export default {
     ...mapActions([
       'REMOVE_CARD',
     ]),
-    deleteCard() {
-      console.log(this.data.id);
-      this.REMOVE_CARD(this.data.id);
-    },
     dateTime() {
       const d = new Date();
       const localTime = d.getTime();
@@ -65,10 +54,6 @@ export default {
       const atl = utc + (1000 * this.data.timezone);
       const nd = new Date(atl);
       return nd;
-      // return new Date(this.data.dt * 1000 - (this.data.timezone * 1000));
-    },
-    goTodetail() {
-      this.$router.push({ name: 'WeatherInfo', params: { Pid: this.data.id, City: this.data.name } });
     },
   },
 };

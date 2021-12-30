@@ -4,7 +4,10 @@
 
     <div class="main">
       <div class="container">
-        <div id="nav">
+        <div
+          id="nav"
+          class="nav"
+        >
           <router-link to="/">
             Home
           </router-link> |
@@ -13,7 +16,10 @@
           </router-link>
         </div>
       </div>
-      <router-view />
+
+      <transition name="moveInUp">
+        <router-view />
+      </transition>
     </div>
 
     <Footer />
