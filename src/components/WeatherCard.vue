@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import ButtonDelete from '../atoms/ButtonDelete.vue';
 
 export default {
@@ -44,17 +44,13 @@ export default {
       default: null,
     },
   },
-  computed: {
-    ...mapGetters([
-      'WETHER_CARDS',
-    ]),
-  },
   methods: {
     ...mapActions([
       'REMOVE_CARD',
+      'GET_WEATHER_CARD',
+      'GET_WEATHER_FULL_CARD',
     ]),
     deleteCard() {
-      console.log(this.data.id);
       this.REMOVE_CARD(this.data.id);
     },
     dateTime() {
@@ -65,9 +61,10 @@ export default {
       const atl = utc + (1000 * this.data.timezone);
       const nd = new Date(atl);
       return nd;
-      // return new Date(this.data.dt * 1000 - (this.data.timezone * 1000));
     },
     goTodetail() {
+      this.GET_WEATHER_CARD(this.data.name);
+      this.GET_WEATHER_FULL_CARD(this.data.name);
       this.$router.push({ name: 'WeatherInfo', params: { Pid: this.data.id, City: this.data.name } });
     },
   },

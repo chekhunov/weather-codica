@@ -68,12 +68,14 @@ export default {
     ]),
   },
   mounted() {
-    this.GET_WEATER_CARDS(this.weatherCity);
+    if (!this.$store.state.weatherCards.length) {
+      this.GET_WEATHER_CARDS(this.weatherCity);
+    }
   },
   methods: {
     ...mapActions([
-      'GET_WEATER_CARDS',
-      'GET_WEATER_CARD',
+      'GET_WEATHER_CARDS',
+      'GET_ADD_WEATHER_CARD',
       'SET_CITY_NO_VALID',
     ]),
     onlyLetters(str) {
@@ -83,12 +85,8 @@ export default {
       if (this.cityName.length < 0 || this.onlyLetters(this.cityName)) {
         this.SET_CITY_NO_VALID();
       }
-      this.GET_WEATER_CARD(this.cityName);
+      this.GET_ADD_WEATHER_CARD(this.cityName);
     },
   },
 };
 </script>
-
-<style scoped lang="scss">
-
-</style>

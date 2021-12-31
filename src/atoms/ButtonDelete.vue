@@ -1,7 +1,7 @@
 <template>
   <span
     class="button-delete"
-    @click="clickActive"
+    @click.stop="clickActive"
   >
     <img
       src="@/root/assets/icons/delete.svg"

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="weather-card"
+    class="weather-full-card"
   >
     <div class="weather-card__inner">
       <div class="weather-card__headline">
@@ -27,20 +27,15 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'WeatherCard',
+  name: 'WeatherFullCard',
   props: {
     data: {
       type: Object,
       default: null,
     },
-  },
-  computed: {
-    ...mapGetters([
-      'WETHER_CARDS',
-    ]),
   },
   methods: {
     ...mapActions([
