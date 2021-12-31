@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+const myKey = 'dbc7dd317ef479abe6a029def432239a';
+
 export default createStore({
   state: {
     preLoader: {
@@ -10,13 +12,14 @@ export default createStore({
       isShow: false,
     },
     cityNameNoValid: false,
+    cityNameNoValidText: 'no correct',
     weatherCards: [],
     weatherCard: {},
     weatherFullCard: [],
   },
   mutations: {
-    SET_WEATHER_CARDS_TO_STATE: (state, weaterCards) => {
-      state.weatherCards.push(weaterCards);
+    SET_WEATHER_CARDS_TO_STATE: (state, cards) => {
+      state.weatherCards.push(cards);
     },
     SET_WEATHER_CARD_TO_STATE: (state, weaterCard) => {
       state.weatherCard = weaterCard;
@@ -43,16 +46,33 @@ export default createStore({
   },
   actions: {
     SET_CITY_NO_VALID({ commit }) {
-      commit('SET_CITY_NO_VALID');
+      commit('SET_CITY_NO_VALID', true);
     },
     REMOVE_CARD({ commit }, id) {
       commit('REMOVE_CARD', id);
     },
-    GET_ADD_WEATHER_CARD({ commit }, city) {
-      commit('SET_CITY_NO_VALID', false);
+    GET_YOUR_CITY({ commit }, coordinates) {
+      commit('SET_TOGGLE', 'preLoader');
+      axios(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&units=metric&appid=${myKey}`, {
+        method: 'GET',
+      })
+        .then((weaterCards) => {
+          commit('SET_WEATHER_CARDS_TO_STATE', weaterCards.data);
+          return weaterCards;
+        })
+        .catch((error) => {
+          console.log(error);
+          return error;
+        })
+        .finally(() => {
+          commit('SET_TOGGLE', 'preLoader');
+        });
+    },
+    GET_ADD_WEATHER_CARD({ commit }, city, text) {
+      commit('SET_CITY_NO_VALID', false, text);
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=dbc7dd317ef479abe6a029def432239a`, {
+        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
@@ -72,7 +92,7 @@ export default createStore({
     GET_WEATHER_CARD({ commit }, city) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=dbc7dd317ef479abe6a029def432239a`, {
+        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCard) => {
@@ -91,7 +111,7 @@ export default createStore({
     GET_WEATHER_FULL_CARD({ commit }, city) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=dbc7dd317ef479abe6a029def432239a`, {
+        axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
@@ -113,7 +133,7 @@ export default createStore({
       setTimeout(() => {
         cityes.forEach(
           (city) => {
-            axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=dbc7dd317ef479abe6a029def432239a`, {
+            axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
               method: 'GET',
             })
               .then((weaterCards) => {
@@ -140,6 +160,9 @@ export default createStore({
     },
     WETHER_FULL_CARD(state) {
       return state.weatherFullCard;
+    },
+    NO_VALID_TEXT(state) {
+      return state.cityNameNoValidText;
     },
   },
 });

@@ -2,17 +2,17 @@
   <div class="d-flex justify-center align-start h100p">
     <div
       v-show="!$store.state.preLoader.isShow"
-      class="weather"
+      class="weather w100p"
     >
       <label
-        class="d-flex justify-end flex-column align-end mb-20"
+        class="pos-r d-flex justify-start flex-column align-end mb-20"
       >
         <span
           v-if="$store.state.cityNameNoValid"
           style="color: red"
-          class="mb-5"
+          class="weather__error pos-a mb-5"
         >
-          no correct city name
+          {{ NO_VALID_TEXT }}
         </span>
 
         <div>
@@ -49,6 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { useCookies } from "vue3-cookies";
 import WeatherCard from '@/components/WeatherCard.vue';
 import PreLoader from '@/components/base/PreLoader.vue';
 import Button from '@/atoms/Button.vue';
@@ -56,21 +57,26 @@ import Button from '@/atoms/Button.vue';
 export default {
   name: 'Weather',
   components: { WeatherCard, PreLoader, Button },
+  setup() {
+    const { cookies } = useCookies();
+    console.log(cookies);
+    return { cookies };
+  },
   data() {
     return {
-      weatherCity: ['Birkirkara', 'Tripoli', 'Zawiya', 'Masallātah', 'Al Khums', 'Zuwārah', 'Tarhuna', 'Zliten'],
       cityName: '',
     };
   },
   computed: {
     ...mapGetters([
       'WETHER_CARDS',
+      'NO_VALID_TEXT',
     ]),
   },
-  mounted() {
-    if (!this.$store.state.weatherCards.length) {
-      this.GET_WEATHER_CARDS(this.weatherCity);
-    }
+   mounted() {
+    const myCookieValue = this.cookies.get("myCoookie");
+    console.log(myCookieValue);
+    this.cookies.set("myCoookie", "abcdefg");
   },
   methods: {
     ...mapActions([
@@ -85,7 +91,12 @@ export default {
       if (this.cityName.length < 0 || this.onlyLetters(this.cityName)) {
         this.SET_CITY_NO_VALID();
       }
-      this.GET_ADD_WEATHER_CARD(this.cityName);
+      const double = this.WETHER_CARDS.filter((item) => (item.name === this.cityName));
+      if (double.length !== 0) {
+        this.SET_CITY_NO_VALID();
+      } else {
+        this.GET_ADD_WEATHER_CARD(this.cityName);
+      }
     },
   },
 };

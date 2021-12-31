@@ -1,6 +1,11 @@
 .weather {
   margin-bottom: 50px;
+  &__error {
+top: -20px;
+  }
+
   &__cards {
+    margin-right: -15px;
     display: flex;
     flex-wrap: wrap;
   }

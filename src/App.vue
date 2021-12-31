@@ -17,9 +17,17 @@
             </router-link>
           </div>
 
-          <div>GeoLocation lat:{{ geolocation.lat }}&nbsp; lng:{{ geolocation.lng }}</div>
+          <div>
+            Your GeoLocation
+            <span v-if="geolocation">lat:&nbsp;{{ geolocation.lat }}&nbsp; lng:&nbsp;{{ geolocation.lng }}</span>
+            <span v-else>blocked</span>
+          </div>
         </div>
       </div>
+
+      <PreLoader
+        v-if="$store.state.preLoader.isShow"
+      />
 
       <transition name="moveInUp">
         <router-view />
@@ -31,14 +39,15 @@
 </template>
 
 <script>
-
+import { mapActions } from 'vuex';
 import Header from '@/components/base/Header.vue';
 import Footer from '@/components/base/Footer.vue';
+import PreLoader from '@/components/base/PreLoader.vue';
 
 export default {
   name: 'Home',
   components: {
-    Header, Footer,
+    Header, Footer, PreLoader,
   },
   data() {
     return {
@@ -66,10 +75,16 @@ export default {
       .then((coordinates) => {
         console.log(coordinates);
         this.geolocation = coordinates;
+        this.GET_YOUR_CITY(coordinates);
       })
       .catch((error) => {
         console.log(error);
       });
+  },
+  methods: {
+    ...mapActions([
+      'GET_YOUR_CITY',
+    ]),
   },
 };
 </script>
