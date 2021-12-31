@@ -86,7 +86,7 @@ export default createStore({
           .finally(() => {
             commit('SET_TOGGLE', 'preLoader');
           });
-      }, 500);
+      }, 1000);
     },
     GET_WEATHER_FULL_CARD({ commit }, city) {
       commit('SET_TOGGLE', 'preLoader');

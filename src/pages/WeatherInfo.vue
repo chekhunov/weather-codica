@@ -13,6 +13,14 @@
           />
         </div>
 
+        <div
+          v-show="!$store.state.preLoader.isShow"
+          class="weather-info__content"
+        >
+          <WeatherFullCard
+            :data="WETHER_CARD"
+          />
+        </div>
         <!-- <div
           v-for="(item) in getCard()"
           :key="item.id"
@@ -24,9 +32,7 @@
             />
           </div>
         </div> -->
-        <WeatherFullCard
-          :data="WETHER_CARD"
-        />
+
         <!-- {{ WETHER_CARD }} -->
         <PreLoader
           v-if="$store.state.preLoader.isShow"

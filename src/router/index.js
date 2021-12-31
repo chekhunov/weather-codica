@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../pages/Home.vue';
 
@@ -6,6 +7,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    beforeEnter: requireAuth,
   },
   {
     path: '/about',
@@ -26,5 +28,11 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+const requireAuth = (to, from, next) => {
+  const { $cookies } = router.app.config.globalProperties;
+  console.log('_ga', $cookies.get('_ga'));
+  next();
+};
 
 export default router;
