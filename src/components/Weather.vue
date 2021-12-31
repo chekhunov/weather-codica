@@ -49,7 +49,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { useCookies } from "vue3-cookies";
+import { useCookies } from 'vue3-cookies';
 import WeatherCard from '@/components/WeatherCard.vue';
 import PreLoader from '@/components/base/PreLoader.vue';
 import Button from '@/atoms/Button.vue';
@@ -59,7 +59,6 @@ export default {
   components: { WeatherCard, PreLoader, Button },
   setup() {
     const { cookies } = useCookies();
-    console.log(cookies);
     return { cookies };
   },
   data() {
@@ -73,10 +72,10 @@ export default {
       'NO_VALID_TEXT',
     ]),
   },
-   mounted() {
-    const myCookieValue = this.cookies.get("myCoookie");
+  mounted() {
+    const myCookieValue = this.cookies.get('myCoookie');
     console.log(myCookieValue);
-    this.cookies.set("myCoookie", "abcdefg");
+    this.cookies.set('myCoookie', 'abcdefg');
   },
   methods: {
     ...mapActions([
