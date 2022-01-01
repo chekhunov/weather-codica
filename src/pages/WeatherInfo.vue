@@ -17,11 +17,11 @@
           v-show="!$store.state.preLoader.isShow"
           class="weather-info__content"
         >
-          <WeatherFullCard
+          <!-- <WeatherFullCard
             :data="WETHER_CARD"
-          />
+          /> -->
         </div>
-        <!-- <div
+        <div
           v-for="(item) in getCard()"
           :key="item.id"
           class="weather-info__inner"
@@ -29,11 +29,11 @@
           <div v-if="Number(proId) === item.id">
             <WeatherFullCard
               :data="item"
+              :date-time="dateTime(item.timezone)"
             />
           </div>
-        </div> -->
+        </div>
 
-        <!-- {{ WETHER_CARD }} -->
         <PreLoader
           v-if="$store.state.preLoader.isShow"
         />
@@ -76,12 +76,27 @@ export default {
       'GET_WEATHER_FULL_CARD',
       'GET_WEATHER_CARD',
     ]),
-    // getCard() {
-    //   if (this.WETHER_CARDS) {
-    //     return this.WETHER_CARDS;
-    //   }
-    //   return this.WETHER_CARD;
-    // },
+    isEmpty(str) {
+      if (str.trim() === '') {
+        return true;
+      }
+      return false;
+    },
+    getCard() {
+      if (this.WETHER_CARDS.length !== 0) {
+        return this.WETHER_CARDS;
+      }
+      return this.WETHER_CARD;
+    },
+    dateTime(timezone) {
+      const d = new Date();
+      const localTime = d.getTime();
+      const localOffset = d.getTimezoneOffset() * 60000;
+      const utc = localTime + localOffset;
+      const atl = utc + (1000 * timezone);
+      const nd = new Date(atl);
+      return nd;
+    },
   },
 };
 </script>

@@ -14,10 +14,14 @@ export default createStore({
     cityNameNoValid: false,
     cityNameNoValidText: 'no correct',
     weatherCards: [],
+    cityArray: [],
     weatherCard: {},
     weatherFullCard: [],
   },
   mutations: {
+    SET_CITY_NAME_TO_STATE_ARRAY: (state, city) => {
+      state.cityArray.push(city);
+    },
     SET_WEATHER_CARDS_TO_STATE: (state, cards) => {
       state.weatherCards.push(cards);
     },
@@ -68,8 +72,8 @@ export default createStore({
           commit('SET_TOGGLE', 'preLoader');
         });
     },
-    GET_ADD_WEATHER_CARD({ commit }, city, text) {
-      commit('SET_CITY_NO_VALID', false, text);
+    GET_ADD_WEATHER_CARD({ commit }, city) {
+      commit('SET_CITY_NO_VALID', false);
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
         axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
@@ -77,6 +81,7 @@ export default createStore({
         })
           .then((weaterCards) => {
             commit('SET_WEATHER_CARDS_TO_STATE', weaterCards.data);
+            commit('SET_CITY_NAME_TO_STATE_ARRAY', weaterCards.data.name);
             return weaterCards;
           })
           .catch((error) => {
@@ -163,6 +168,9 @@ export default createStore({
     },
     NO_VALID_TEXT(state) {
       return state.cityNameNoValidText;
+    },
+    CITY_ARRAY(state) {
+      return state.cityArray;
     },
   },
 });

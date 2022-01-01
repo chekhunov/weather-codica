@@ -5,7 +5,7 @@
     <div class="weather-card__inner">
       <div class="weather-card__headline">
         <div class="weather-card__date">
-          {{ dateTime() }}
+          {{ dateTime }}
         </div>
         <div class="weather-card__title">
           {{ data.name }}
@@ -36,20 +36,15 @@ export default {
       type: Object,
       default: null,
     },
+    dateTime: {
+      type: Object,
+      default: null,
+    },
   },
   methods: {
     ...mapActions([
       'REMOVE_CARD',
     ]),
-    dateTime() {
-      const d = new Date();
-      const localTime = d.getTime();
-      const localOffset = d.getTimezoneOffset() * 60000;
-      const utc = localTime + localOffset;
-      const atl = utc + (1000 * this.data.timezone);
-      const nd = new Date(atl);
-      return nd;
-    },
   },
 };
 </script>
