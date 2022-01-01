@@ -1,7 +1,12 @@
 .weather {
   margin-bottom: 50px;
+  width: 100vw;
   &__error {
-top: -20px;
+    top: -20px;
+  }
+
+  &__label {
+
   }
 
   &__cards {

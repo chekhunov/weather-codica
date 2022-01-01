@@ -1,10 +1,11 @@
 .weather-card {
   position: relative;
-  width: calc(300px);
-  height: calc(150px);
+  width: calc(500px);
+  height: calc(200px);
   padding: 15px;
   display: inline-block;
   background-color: #fff;
+  color: darkcyan;
   border-radius: 15px;
   border: 1px solid lightgrey;
   cursor: pointer;
@@ -34,5 +35,6 @@
     font-size: 24px;
     font-weight: 600;
     color: darkcyan;
+    border-bottom: 1px solid darkcyan;
   }
 }

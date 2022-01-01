@@ -1,26 +1,25 @@
 <template>
   <div class="weather-info">
-    <div class="container">
-      <div class="weather-info__inner">
-        <div class="weather-info__top  d-flex justify-between align-center">
-          <Button
-            title="Back"
-            @clickButton="$router.push({ name: 'Home' })"
-          />
+    <div class="weather-info__inner">
+      <div class="weather-info__top  d-flex justify-between align-center">
+        <div class="container">
+          <div class="weather-info__headline w100p d-flex justify-between">
+            <Button
+              title="Back"
+              @clickButton="$router.push({ name: 'Home' })"
+            />
 
-          <ButtonUpdate
-            @clickButton="GET_WEATHER_CARD(proCity);"
-          />
+            <ButtonUpdate
+              @clickButton="GET_WEATHER_CARD(proCity);"
+            />
+          </div>
         </div>
+      </div>
 
-        <div
-          v-show="!$store.state.preLoader.isShow"
-          class="weather-info__content"
-        >
-          <!-- <WeatherFullCard
-            :data="WETHER_CARD"
-          /> -->
-        </div>
+      <div
+        v-show="!$store.state.preLoader.isShow"
+        class="weather-info__content"
+      >
         <div
           v-for="(item) in getCard()"
           :key="item.id"
@@ -33,11 +32,11 @@
             />
           </div>
         </div>
-
-        <PreLoader
-          v-if="$store.state.preLoader.isShow"
-        />
       </div>
+
+      <PreLoader
+        v-if="$store.state.preLoader.isShow"
+      />
     </div>
   </div>
 </template>

@@ -12,18 +12,18 @@
         <div class="weather-card__date">
           {{ dateTime() }}
         </div>
-        <div class="weather-card__title">
-          {{ data.name }}
+        <div class="weather-card__title pt-20 text-center">
+          Weather in&nbsp;{{ data.name }}
         </div>
         <div>
           temp &nbsp;{{ data.main['temp'] }}
         </div>
         <div class="d-flex justify-between">
           <div>
-            Wind speed &nbsp;{{ data.wind['speed'] }}
+            wind speed &nbsp;{{ data.wind['speed'] }}&nbsp;m/s
           </div>
           <div>
-            Wind deg &nbsp;{{ data.wind['deg'] }}
+            wind deg &nbsp;{{ data.wind['deg'] }}
           </div>
         </div>
       </div>

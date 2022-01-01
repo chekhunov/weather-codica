@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex justify-center align-start h100p">
+  <div class="d-flex justify-start align-start h100p">
     <div
       v-show="!$store.state.preLoader.isShow"
       class="weather w100p"
     >
       <label
-        class="pos-r d-flex justify-start flex-column align-end mb-20"
+        class="weather__label pos-r d-flex justify-start align-start mb-20"
       >
         <span
           v-if="$store.state.cityNameNoValid"
@@ -76,10 +76,10 @@ export default {
   },
   mounted() {
     const myCookieValue = this.cookies.get('city');
-    console.log(myCookieValue);
-    if (this.WETHER_CARDS.length === 0) {
-      this.GET_WEATHER_CARDS(JSON.parse(this.myCookieValue));
-    }
+    console.log(JSON.parse(myCookieValue));
+    // if (this.WETHER_CARDS.length === 0) {
+    // this.GET_WEATHER_CARDS(JSON.parse(this.myCookieValue));
+    // }
   },
   methods: {
     ...mapActions([
@@ -98,8 +98,8 @@ export default {
       if (double.length !== 0) {
         this.SET_CITY_NO_VALID();
       } else {
-        this.cookies.set('city', JSON.stringify(this.CITY_ARRAY));
         this.GET_ADD_WEATHER_CARD(this.cityName);
+        this.cookies.set('city', JSON.stringify(this.CITY_ARRAY));
         // console.log(this.$store.state.cityArray.join());
       }
     },

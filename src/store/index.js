@@ -116,7 +116,7 @@ export default createStore({
     GET_WEATHER_FULL_CARD({ commit }, city) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${myKey}`, {
+        axios(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&ctn=1&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
