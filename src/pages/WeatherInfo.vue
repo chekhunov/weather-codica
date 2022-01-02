@@ -71,7 +71,7 @@ export default {
     ]),
   },
   mounted() {
-    this.GET_WEATHER_CARD(this.proCity);
+    // this.GET_WEATHER_CARD(this.proCity);
     this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && this.GET_WEATHER_FULL_CARD(item.coord));
     // if (!JSON.stringify(this.WETHER_FULL_CARD) === '{}') {
     //   this.GET_WEATHER_FULL_CARD(this.geoCity);

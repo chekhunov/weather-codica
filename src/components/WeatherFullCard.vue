@@ -27,7 +27,7 @@
       <div class="weather-full__details">
         <div class="weather-full__box d-flex justify-start">
           <div
-            v-for="(item, index) in WETHER_FULL_CARD.hourly"
+            v-for="(item, index) in WETHER_FULL_CARD"
             :key="item.dt"
             class="weather-full__item"
           >
@@ -69,10 +69,18 @@ export default {
     ...mapGetters([
       'WETHER_FULL_CARD',
     ]),
+    getFullInfoHours() {
+      if (this.WETHER_FULL_CARD.length === 0) {
+        this.GET_WEATHER_FULL_CARD(this.data.coord);
+      }
+      console.log(this.WETHER_FULL_CARD, 'comput');
+      return this.WETHER_FULL_CARD;
+    },
   },
   methods: {
     ...mapActions([
       'REMOVE_CARD',
+      'GET_WEATHER_FULL_CARD',
     ]),
     getTime(dt) {
       const maxDate = new Date(dt * 1000);

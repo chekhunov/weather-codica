@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
-const myKey = 'dbc7dd317ef479abe6a029def432239a';
+const myKey = '41d3cd22f575e109b52420d429cf059a';
 
 export default createStore({
   state: {
@@ -121,7 +121,7 @@ export default createStore({
         })
           .then((weaterCards) => {
             console.log(weaterCards, 'then');
-            commit('SET_WEATHER_FULL_CARD_TO_STATE', weaterCards.data);
+            commit('SET_WEATHER_FULL_CARD_TO_STATE', weaterCards.data.hourly);
             return weaterCards;
           })
           .catch((error) => {
