@@ -64,7 +64,7 @@ export default {
     },
     goTodetail() {
       this.GET_WEATHER_CARD(this.data.name);
-      this.GET_WEATHER_FULL_CARD(this.data.name);
+      this.GET_WEATHER_FULL_CARD(this.data.coord);
       this.$router.push({ name: 'WeatherInfo', params: { Pid: this.data.id, City: this.data.name } });
     },
   },

@@ -76,10 +76,10 @@ export default {
   },
   mounted() {
     const myCookieValue = this.cookies.get('city');
-    console.log(JSON.parse(myCookieValue));
-    // if (this.WETHER_CARDS.length === 0) {
-    // this.GET_WEATHER_CARDS(JSON.parse(this.myCookieValue));
-    // }
+    console.log(myCookieValue, 'cookies');
+    if (this.WETHER_CARDS.length === 0) {
+      this.GET_WEATHER_CARDS([myCookieValue]);
+    }
   },
   methods: {
     ...mapActions([
@@ -99,8 +99,7 @@ export default {
         this.SET_CITY_NO_VALID();
       } else {
         this.GET_ADD_WEATHER_CARD(this.cityName);
-        this.cookies.set('city', JSON.stringify(this.CITY_ARRAY));
-        // console.log(this.$store.state.cityArray.join());
+        this.cookies.set('city', this.CITY_ARRAY);
       }
     },
   },

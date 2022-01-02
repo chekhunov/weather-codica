@@ -1,9 +1,9 @@
 <template>
   <div
-    class="weather-full-card p-50"
+    class="weather-full-card pt-50 pb-50"
   >
     <div class="weather-full__inner">
-      <div class="weather-full__headline">
+      <div class="weather-full__headline  mb-50">
         <div class="weather-full__date">
           {{ dateTime }}
         </div>
@@ -23,14 +23,26 @@
         </div>
       </div>
 
+      <span>temperature per day at intervals of one hour</span>
       <div class="weather-full__details">
-        <div class="weather-full__box">
+        <div class="weather-full__box d-flex justify-start">
           <div
-            v-for="(item) in WETHER_FULL_CARD"
+            v-for="(item, index) in WETHER_FULL_CARD.hourly"
             :key="item.dt"
             class="weather-full__item"
           >
-            <span>{{ item.dt_txt }}</span>
+            <span
+              v-if="index <= 23"
+              class="weather-full__column d-flex flex-column align-center p-10"
+            >
+              <span
+                class="pb-50"
+                :style="{marginBottom : (item.temp * (-1)*2) + 'px'}"
+              >
+                {{ getTime(item.dt) }}
+              </span>
+              <span class="weather-full__temp d-flex justify-center p-10">{{ item.temp }}</span>
+            </span>
           </div>
         </div>
       </div>
@@ -62,6 +74,11 @@ export default {
     ...mapActions([
       'REMOVE_CARD',
     ]),
+    getTime(dt) {
+      const maxDate = new Date(dt * 1000);
+      const isoDate = maxDate.toTimeString().substr(0, 5);
+      return isoDate;
+    },
   },
 };
 </script>

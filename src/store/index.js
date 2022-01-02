@@ -113,14 +113,15 @@ export default createStore({
           });
       }, 1000);
     },
-    GET_WEATHER_FULL_CARD({ commit }, city) {
+    GET_WEATHER_FULL_CARD({ commit }, coord) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&ctn=1&units=metric&appid=${myKey}`, {
+        axios(`http://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=current,minutely,alerts&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
-            commit('SET_WEATHER_FULL_CARD_TO_STATE', weaterCards.data.list);
+            console.log(weaterCards, 'then');
+            commit('SET_WEATHER_FULL_CARD_TO_STATE', weaterCards.data);
             return weaterCards;
           })
           .catch((error) => {

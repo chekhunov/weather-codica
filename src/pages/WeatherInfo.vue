@@ -8,7 +8,7 @@
               title="Back"
               @clickButton="$router.push({ name: 'Home' })"
             />
-
+            {{ getCityGeo() }}
             <ButtonUpdate
               @clickButton="GET_WEATHER_CARD(proCity);"
             />
@@ -16,20 +16,22 @@
         </div>
       </div>
 
-      <div
-        v-show="!$store.state.preLoader.isShow"
-        class="weather-info__content"
-      >
+      <div class="container">
         <div
-          v-for="(item) in getCard()"
-          :key="item.id"
-          class="weather-info__inner"
+          v-show="!$store.state.preLoader.isShow"
+          class="weather-info__content"
         >
-          <div v-if="Number(proId) === item.id">
-            <WeatherFullCard
-              :data="item"
-              :date-time="dateTime(item.timezone)"
-            />
+          <div
+            v-for="(item) in getCard()"
+            :key="item.id"
+            class="weather-info__inner"
+          >
+            <div v-if="Number(proId) === item.id">
+              <WeatherFullCard
+                :data="item"
+                :date-time="dateTime(item.timezone)"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -55,6 +57,7 @@ export default {
   },
   data() {
     return {
+      geoCity: null,
       proId: this.$route.params.Pid,
       proCity: this.$route.params.City,
     };
@@ -64,11 +67,15 @@ export default {
     ...mapGetters([
       'WETHER_CARDS',
       'WETHER_CARD',
+      'WETHER_FULL_CARD',
     ]),
   },
   mounted() {
     this.GET_WEATHER_CARD(this.proCity);
-    this.GET_WEATHER_FULL_CARD(this.proCity);
+    this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && this.GET_WEATHER_FULL_CARD(item.coord));
+    // if (!JSON.stringify(this.WETHER_FULL_CARD) === '{}') {
+    //   this.GET_WEATHER_FULL_CARD(this.geoCity);
+    // }
   },
   methods: {
     ...mapActions([
@@ -80,6 +87,10 @@ export default {
         return true;
       }
       return false;
+    },
+    getCityGeo() {
+      const geo = this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && item.coord);
+      this.geoCity = geo;
     },
     getCard() {
       if (this.WETHER_CARDS.length !== 0) {
