@@ -12,13 +12,19 @@
         <div class="weather-card__date">
           {{ dateTime() }}
         </div>
-        <div class="weather-card__title pt-20 text-center">
+        <div class="weather-card__title pt-20 pt-20 text-center">
           Weather in&nbsp;{{ data.name }}
         </div>
         <div>
           temp &nbsp;{{ data.main['temp'] }}
         </div>
-        <div class="d-flex justify-between">
+        <div>
+          temp-min &nbsp;{{ data.main['temp_min'] }}
+        </div>
+        <div>
+          temp-max &nbsp;{{ data.main['temp_max'] }}
+        </div>
+        <div class="d-flex justify-between pt-5">
           <div>
             wind speed &nbsp;{{ data.wind['speed'] }}&nbsp;m/s
           </div>

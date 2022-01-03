@@ -36,7 +36,7 @@
               class="weather-full__column d-flex flex-column align-center p-10"
             >
               <span
-                class="pb-50"
+                class="weather-full__time pb-50"
                 :style="{marginBottom : (item.temp * (-1)*2) + 'px'}"
               >
                 {{ getTime(item.dt) }}
@@ -69,13 +69,6 @@ export default {
     ...mapGetters([
       'WETHER_FULL_CARD',
     ]),
-    getFullInfoHours() {
-      if (this.WETHER_FULL_CARD.length === 0) {
-        this.GET_WEATHER_FULL_CARD(this.data.coord);
-      }
-      console.log(this.WETHER_FULL_CARD, 'comput');
-      return this.WETHER_FULL_CARD;
-    },
   },
   methods: {
     ...mapActions([

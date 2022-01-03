@@ -144,6 +144,7 @@ export default createStore({
             })
               .then((weaterCards) => {
                 commit('SET_WEATHER_CARDS_TO_STATE', weaterCards.data);
+                commit('SET_CITY_NAME_TO_STATE_ARRAY', weaterCards.data.name);
 
                 return weaterCards;
               })

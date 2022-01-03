@@ -15,28 +15,30 @@
           {{ NO_VALID_TEXT }}
         </span>
 
-        <div>
+        <div class="weather__input">
           <input
             v-model="cityName"
             type="text"
             placeholder="City name"
           >
           <Button
-            title="Add new card"
+            title="Add new city"
             @clickButton="addedCity"
           />
         </div>
       </label>
 
       <div
-        class="weather__cards justify-center"
+        class="weather__cards"
       >
         <div
           v-for="item in WETHER_CARDS"
           :key="item.id"
           class="weather__item"
         >
-          <weather-card :data="item" />
+          <weather-card
+            :data="item"
+          />
         </div>
       </div>
     </div>
@@ -64,6 +66,7 @@ export default {
   data() {
     return {
       cityName: '',
+      cityBase: [],
       cityArray: [],
     };
   },

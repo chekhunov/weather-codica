@@ -1,8 +1,43 @@
 .weather-info {
   .button {
+    position: relative;
+    padding-left: 22px;
+    font-size: 14px;
     background-color: transparent;
+    color: darkcyan;
     border: 0;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      span {
+        svg {
+          left: -10px;
+          transition: left 0.3s;
+        }
+      }
+    }
+
+    span {
+      svg {
+        position: absolute;
+        top: 16px;
+        left: 0;
+        transition: left 0.3s;
+      }
+    }
   }
+}
+
+.button {
+  width: 100%;
+  max-width: 200px;
+  height: 40px;
+  font-size: 18px;
+  background-color: #059f66;
+  color: #fff;
+  border: 0;
+  text-transform: uppercase;
 }
 
 .button,
@@ -18,5 +53,19 @@
 }
 
 .button-update {
-  transform: rotate(90deg);
+  display: inline-flex;
+  align-items: center;
+
+  svg {
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+    transition:         transform .8s ease-in-out;
+  }
+
+  &:hover {
+    svg {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+
+    }
+  }
 }

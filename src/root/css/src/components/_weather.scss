@@ -1,23 +1,47 @@
 .weather {
   margin-bottom: 50px;
   width: 100vw;
+
   &__error {
     top: -20px;
   }
 
-  &__label {
-
-  }
-
   &__cards {
     margin-right: -15px;
+    padding: 30px 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   &__item {
     background-color: darkgray;
     margin-right: 15px;
     margin-bottom: 15px;
+  }
+
+  &__example {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  &__input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+      margin-right: 20px;
+      padding: 0 10px;
+      border: 1px solid lightgrey;
+
+      &::placeholder {
+        font-size: 18px;
+        opacity: 0.6;
+      }
+    }
   }
 }

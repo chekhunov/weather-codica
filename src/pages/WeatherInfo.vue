@@ -22,7 +22,7 @@
           class="weather-info__content"
         >
           <div
-            v-for="(item) in getCard()"
+            v-for="(item) in toShow"
             :key="item.id"
             class="weather-info__inner"
           >
@@ -69,10 +69,26 @@ export default {
       'WETHER_CARD',
       'WETHER_FULL_CARD',
     ]),
+    toShow() {
+      if (this.WETHER_CARDS.length !== 0) {
+        return this.WETHER_CARDS;
+      }
+      if (this.WETHER_CARD) {
+        return [this.WETHER_CARD];
+      }
+      return null;
+    },
+  },
+  watch: {
+    WETHER_CARD(data) {
+      this.GET_WEATHER_FULL_CARD(data.coord);
+    },
   },
   mounted() {
-    // this.GET_WEATHER_CARD(this.proCity);
-    this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && this.GET_WEATHER_FULL_CARD(item.coord));
+    this.GET_WEATHER_CARD(this.proCity);
+    // console.log(this.WETHER_CARD, 'dsfsf');
+    // this.GET_WEATHER_FULL_CARD(this.WETHER_CARD.coord);
+    // this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && this.GET_WEATHER_FULL_CARD(item.coord));
     // if (!JSON.stringify(this.WETHER_FULL_CARD) === '{}') {
     //   this.GET_WEATHER_FULL_CARD(this.geoCity);
     // }
@@ -92,12 +108,12 @@ export default {
       const geo = this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && item.coord);
       this.geoCity = geo;
     },
-    getCard() {
-      if (this.WETHER_CARDS.length !== 0) {
-        return this.WETHER_CARDS;
-      }
-      return this.WETHER_CARD;
-    },
+    // getCard() {
+    //   if (this.WETHER_CARDS.length !== 0) {
+    //     return this.WETHER_CARDS;
+    //   }
+    //   return this.WETHER_CARD;
+    // },
     dateTime(timezone) {
       const d = new Date();
       const localTime = d.getTime();
