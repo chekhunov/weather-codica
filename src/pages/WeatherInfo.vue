@@ -86,12 +86,6 @@ export default {
   },
   mounted() {
     this.GET_WEATHER_CARD(this.proCity);
-    // console.log(this.WETHER_CARD, 'dsfsf');
-    // this.GET_WEATHER_FULL_CARD(this.WETHER_CARD.coord);
-    // this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && this.GET_WEATHER_FULL_CARD(item.coord));
-    // if (!JSON.stringify(this.WETHER_FULL_CARD) === '{}') {
-    //   this.GET_WEATHER_FULL_CARD(this.geoCity);
-    // }
   },
   methods: {
     ...mapActions([
@@ -108,12 +102,6 @@ export default {
       const geo = this.WETHER_CARDS.map((item) => item.id === Number(this.proId) && item.coord);
       this.geoCity = geo;
     },
-    // getCard() {
-    //   if (this.WETHER_CARDS.length !== 0) {
-    //     return this.WETHER_CARDS;
-    //   }
-    //   return this.WETHER_CARD;
-    // },
     dateTime(timezone) {
       const d = new Date();
       const localTime = d.getTime();
@@ -126,7 +114,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

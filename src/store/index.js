@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 
+const url = 'http://api.openweathermap.org/data/2.5/';
 const myKey = '41d3cd22f575e109b52420d429cf059a';
 
 export default createStore({
@@ -57,7 +58,7 @@ export default createStore({
     },
     GET_YOUR_CITY({ commit }, coordinates) {
       commit('SET_TOGGLE', 'preLoader');
-      axios(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lng}&units=metric&appid=${myKey}`, {
+      axios(`${url}weather?lat=${coordinates.lat}&lon=${coordinates.lng}&units=metric&appid=${myKey}`, {
         method: 'GET',
       })
         .then((weaterCards) => {
@@ -76,7 +77,7 @@ export default createStore({
       commit('SET_CITY_NO_VALID', false);
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
+        axios(`${url}weather?q=${city}&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
@@ -97,7 +98,7 @@ export default createStore({
     GET_WEATHER_CARD({ commit }, city) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
+        axios(`${url}weather?q=${city}&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCard) => {
@@ -116,11 +117,10 @@ export default createStore({
     GET_WEATHER_FULL_CARD({ commit }, coord) {
       commit('SET_TOGGLE', 'preLoader');
       setTimeout(() => {
-        axios(`http://api.openweathermap.org/data/2.5/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=current,minutely,alerts&units=metric&appid=${myKey}`, {
+        axios(`${url}onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=current,minutely,alerts&units=metric&appid=${myKey}`, {
           method: 'GET',
         })
           .then((weaterCards) => {
-            console.log(weaterCards, 'then');
             commit('SET_WEATHER_FULL_CARD_TO_STATE', weaterCards.data.hourly);
             return weaterCards;
           })
@@ -139,7 +139,7 @@ export default createStore({
       setTimeout(() => {
         cityes.forEach(
           (city) => {
-            axios(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${myKey}`, {
+            axios(`${url}weather?q=${city}&units=metric&appid=${myKey}`, {
               method: 'GET',
             })
               .then((weaterCards) => {
